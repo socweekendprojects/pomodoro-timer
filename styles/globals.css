@@ -1,3 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+h1{
+    font-size: 65px;
+}
+
+h2
+{
+    font-size: 30px;
+}
+
+
+.pomodoroShadow{
+    background: linear-gradient(145deg, #942020, #af2527);
+    box-shadow: 20px 20px 60px #8b1e1f,
+            -20px -20px 60px #bd2829;
+}
+
+.buttonShadow{
+    background: linear-gradient(145deg, #af2527, #942020);
+    box-shadow: 6px 6px 12px #691617,
+            -6px -6px 40px #df3031;
+    transition: all .3s;
+
+}
+
+.buttonShadow:active {
+    box-shadow: inset 4px 4px 12px #691617,
+        inset -4px -4px 12px #df3031;
+}
