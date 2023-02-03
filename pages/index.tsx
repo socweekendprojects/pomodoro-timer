@@ -1,25 +1,28 @@
 import type { NextPage } from "next";
 import Pomodoro from "../components/Pomodoro";
 import Button from "../components/Button";
-// import ButtonContainer from "../components/ButtonContainer";
 import Heading from "../components/Heading";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const Home: NextPage = () => {
+  //this is the hard coded display
   const [time, setTime] = useState({ mins: 25, secs: 0.0 });
   const [playBtnState, setPlayBtnState] = useState(false);
-  // const [pauseBtnState, setPauseBtnState] = useState(false);
+  const [pauseBtnState, setPauseBtnState] = useState(false)
   const [heading, setHeading] = useState("Work Time");
   const [resetBtn, setResetBtn] = useState(false)
-  const [workTime, setWorkTime] = useState(25);
-  const [breakTime, setBreakTime] = useState(5);
-  const [longBreak, setLongBreak] = useState(15)
-  const [breakCount, setBreakCount] = useState(0)
 
-  // let workTime = workTime;
-  // let breakTime = breakTime;
-  // let longBreak = longBreak;
-  // let breakCount = 0;
+  type intervalType = {
+    mins: number,
+    secs: number
+}
+
+  let intervalRef = useRef<any>(null);
+
+  let workTime = 25;
+  let breakTime = 5;
+  let longBreak = 15;
+  let breakCount = 0;
 
   //starts timer at 24:59 instead of 25:59
   let mins = workTime-1;
@@ -34,13 +37,11 @@ const Home: NextPage = () => {
       secs = 59;
     }
     //if min is <0 than add to breakCounter
-    if (mins < 0) {
-      setBreakCount(1);
-      console.log(breakCount)
-
+    if (mins === 0) {
+      breakCount++
       // there are x2 SB
       if (breakCount === 1 || breakCount === 3) {
-            console.log("This is short break, the count is", breakCount);
+        console.log("This is short break, the count is", breakCount);
 
         setHeading("Short Break");
         mins = breakTime - 1;
@@ -57,29 +58,37 @@ const Home: NextPage = () => {
         setHeading("Long Break");
         mins = longBreak - 1;
         secs = 59;
-        setBreakCount(- 1);
+        breakCount = -1;
       }
     }
 
     // console.log("mins" + mins, "secs" + secs, "count" + breakCount);
     setTime({ ...time, mins: mins, secs: secs });
   }
+  
 
-  useEffect(() => {
+  useEffect(() => {    
     if (playBtnState === true) {
-      const interval = setInterval(timer, 1);
-      return () => clearInterval(interval);
+      intervalRef.current = setInterval(timer, 1);
+      return () => clearInterval(intervalRef.current);
     } else {
-      setTime({ ...time });
+      console.log("time in the useEffect", workTime);
+      // setTime({ ...time });
     }
-  }, [playBtnState]);
+  }, []);
+
 
   function handlePause() {
     console.log("pause button was pressed");
     setPlayBtnState(!playBtnState);
     console.log(time)
-    // setTime(time);
-    console.log(breakCount);
+
+    if (pauseBtnState) {
+      clearInterval(intervalRef.current);
+    } else {
+      intervalRef.current = setInterval(timer, 1000);
+    }
+    setPauseBtnState((prev) => !prev);
   }
 
   return (
@@ -106,8 +115,8 @@ const Home: NextPage = () => {
               handleClick={() => {
                 setPlayBtnState(false),
                   setResetBtn(false),
-                  setHeading("Work Time"),
-                  setTime({ mins: 25, secs: 0.0 });
+                  setHeading("Work Time")
+                  // setTime({ mins: 25, secs: 0.0 });
               }}
             />
           ) : null}
