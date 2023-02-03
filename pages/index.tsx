@@ -6,89 +6,91 @@ import { useEffect, useState, useRef } from "react";
 
 const Home: NextPage = () => {
   //this is the hard coded display
-  const [time, setTime] = useState({ mins: 25, secs: 0.0 });
+  const [time, setTime] = useState({ mins: 24, secs: 59 });
+  const [breakTime, setBreakTime] = useState({short:5, long: 15, count:0});
   const [playBtnState, setPlayBtnState] = useState(false);
-  const [pauseBtnState, setPauseBtnState] = useState(false)
+  const [pauseBtnState, setPauseBtnState] = useState(false);
   const [heading, setHeading] = useState("Work Time");
-  const [resetBtn, setResetBtn] = useState(false)
+  const [startTime, setStartTime] = useState(true);
+  // const [resetBtn, setResetBtn] = useState(false)
 
   type intervalType = {
-    mins: number,
-    secs: number
-}
+    mins: number;
+    secs: number;
+  };
 
   let intervalRef = useRef<any>(null);
 
-  let workTime = 25;
-  let breakTime = 5;
-  let longBreak = 15;
-  let breakCount = 0;
+  // let workTime = 25;
+  // let breakTime = 5;
+  // let longBreak = 15;
+  // let breakCount = 0;
 
-  //starts timer at 24:59 instead of 25:59
-  let mins = workTime-1;
-  let secs = 60;
+  // //starts timer at 24:59 instead of 25:59
+  // let mins = workTime-1;
+  // let secs = 60;
 
   function timer() {
     //everytime function is called -1 from sec
-    secs--;
+    setTime({ ...time, secs: time.secs-- });
+    // secs--
+
     //if sec is <0 -1 from min and reset sec
-    if (secs < 0) {
-      mins--;
-      secs = 59;
+    if (time.secs < 0) {
+      setTime({ ...time, mins: time.mins--, secs: (time.secs = 59) });
+      // mins--;
+      // secs = 59;
     }
     //if min is <0 than add to breakCounter
-    if (mins === 0) {
-      breakCount++
+    if (time.mins === 0) {
+      setBreakTime({...break, count: break.count++});
       // there are x2 SB
       if (breakCount === 1 || breakCount === 3) {
         console.log("This is short break, the count is", breakCount);
 
         setHeading("Short Break");
-        mins = breakTime - 1;
-        secs = 59;
+        setTime({ ...time, mins: breakTime - 1, secs: 59 });
+        // mins = breakTime - 1;
+        // secs = 59;
       }
       // there are x3 WT
       else if (breakCount === 0 || breakCount === 2 || breakCount === 4) {
         setHeading("Work Time");
-        mins = workTime - 1;
-        secs = 59;
+        setTime({ ...time, mins: 24, secs: 59 });
+        // mins = workTime - 1;
+        // secs = 59;
       }
       // there is x1 LB and everything rests to loop
       else {
         setHeading("Long Break");
-        mins = longBreak - 1;
-        secs = 59;
-        breakCount = -1;
+        setTime({ ...time, mins: longBreak - 1, secs: 59 });
+        // mins = longBreak - 1;
+        // secs = 59;
+        breakCount--;
       }
     }
 
     // console.log("mins" + mins, "secs" + secs, "count" + breakCount);
-    setTime({ ...time, mins: mins, secs: secs });
+    //setTime({ ...time, mins: mins, secs: secs });
   }
-  
 
-  useEffect(() => {    
-    if (playBtnState === true) {
-      intervalRef.current = setInterval(timer, 1);
-      return () => clearInterval(intervalRef.current);
-    } else {
-      console.log("time in the useEffect", workTime);
-      // setTime({ ...time });
+  console.log(time);
+
+  useEffect(() => {
+    if (playBtnState) {
+      intervalRef.current = setInterval(timer, 10);
     }
-  }, []);
-
+    return () => clearInterval(intervalRef.current);
+  }, [playBtnState]);
 
   function handlePause() {
-    console.log("pause button was pressed");
-    setPlayBtnState(!playBtnState);
-    console.log(time)
-
-    if (pauseBtnState) {
+    if (!pauseBtnState) {
       clearInterval(intervalRef.current);
     } else {
-      intervalRef.current = setInterval(timer, 1000);
+      intervalRef.current = setInterval(timer, 10);
     }
-    setPauseBtnState((prev) => !prev);
+    setPauseBtnState(true);
+    setPlayBtnState(false);
   }
 
   return (
@@ -96,30 +98,28 @@ const Home: NextPage = () => {
       <div className="flex flex-col items-center gap-20 justify-center min-h-[50vh] min-w-[40vw]">
         <Heading heading={heading} />
         <Pomodoro
-          clockTime={`${time.mins >= 10 ? time.mins : `0${time.mins}`}:${
-            time.secs >= 10 ? time.secs : `0${time.secs}`
-          }`}
+          clockTime={
+            startTime
+              ? "25:00"
+              : `${time.mins >= 10 ? time.mins : `0${time.mins}`}:${
+                  time.secs >= 10 ? time.secs : `0${time.secs}`
+                }`
+          }
         />
         <div className="flex gap-8">
-          <Button
-            handlePause={handlePause}
-            buttonText={playBtnState ? "Pause" : "Play"}
-            handleClick={() => {
-              setPlayBtnState(!playBtnState), setResetBtn(true);
-            }}
-          />
-          {resetBtn ? (
+          {!playBtnState ? (
             <Button
-              handlePause={handlePause}
-              buttonText={"Reset"}
+              // handlePause={handlePause}
+              buttonText="Play"
               handleClick={() => {
-                setPlayBtnState(false),
-                  setResetBtn(false),
-                  setHeading("Work Time")
-                  // setTime({ mins: 25, secs: 0.0 });
+                setPlayBtnState(true); //setResetBtn(true);
+                setPauseBtnState(false);
+                setStartTime(false);
               }}
             />
-          ) : null}
+          ) : (
+            <Button buttonText="Pause" handleClick={handlePause} />
+          )}
         </div>
       </div>
     </div>
