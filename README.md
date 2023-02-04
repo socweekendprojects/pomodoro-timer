@@ -27,9 +27,7 @@ Solution found in https://www.reddit.com/r/reactjs/comments/y1aorm/clear_interva
 
 <h2> Installation</h2>
 
-1.  Clone the repo 
-
-`git clone https://github.com/socweekendprojects/pomodoro-timer.git`
+1.  `git clone https://github.com/socweekendprojects/pomodoro-timer.git`
 
 2. <code>npm i & npm run dev</code>
 
