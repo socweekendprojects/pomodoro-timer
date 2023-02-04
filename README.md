@@ -1,5 +1,6 @@
-# Pomodoro timer
+# Pomodoro timer 
 A simple timer app to help you boost your productivity. Working is cycles of 25min work 5min break and after 3 cycles of work you get a longer 15min break. 
+Click for [Demo](https://pomodoro-app1.netlify.app/).
 <br><br>
 <div align="center">
 <img src='./public/Pomodoro Timer Screenshot.png' width=300px>
