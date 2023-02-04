@@ -1,4 +1,5 @@
 # Pomodoro timer
+![app](../public/Pomodoro Timer Screenshot.png)
 A simple timer app to help you boost your productivity. Working is cycles of 25min work 5 min break and after 3 cycles of work you get a longer 15min break. 
 
 ## Main Learning Points:
