@@ -1,27 +1,36 @@
-# Next.js + Tailwind CSS Example
+# Pomodoro timer
+A simple timer app to help you boost your productivity. Working is cycles of 25min work 5min break and after 3 cycles of work you get a longer 15min break. 
+<br><br>
+<div align="center">
+<img src='./public/Pomodoro Timer Screenshot.png' width=300px>
+</div>
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.2)](https://tailwindcss.com/blog/tailwindcss-v3-2) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+<br>
 
-## Deploy your own
+<h2> Main Learning Points</h2>
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+- I used Tailwind CSS for the first time.
+- Used useRef hook
+- Used setInterval & clearInterval
+- The main problem I faced was with clearInterval onClick -> ‘its because start variable is re-created on each render and don’t have timer id when clearing interval you need to store it in useRef hook’. I took a lot of digging into google forums but the issue we had was the pause button kept on resetting. useRef seemed to do the trick. 'useRef is basically useState but React won't render component when ref changes nor ref value will change when render happens'. I was not able to use useState as it did not update the variables. 
+Solution found in https://www.reddit.com/r/reactjs/comments/y1aorm/clear_interval_is_not_working_on_onclick/
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+<h2> Stretch Goals</h2>
 
-## How to use
+- Allow the user to select number of work cycles and change length of breaks
+- Write tests
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+<h2> Built with</h2>
 
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-```
+- Next.js
+- Tailwind CSS
 
-```bash
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-```
+<h2> Installation</h2>
 
-```bash
-pnpm create next-app --example with-tailwindcss with-tailwindcss-app
-```
+1.  Clone the repo 
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+`git clone https://github.com/socweekendprojects/pomodoro-timer.git`
+
+2. <code>npm i & npm run dev</code>
+
+
