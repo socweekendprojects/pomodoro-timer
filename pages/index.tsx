@@ -57,7 +57,7 @@ const Home: NextPage = () => {
 
   function handleStart() {
     //the window use here makes typescript happy
-    interval.current = window.setInterval(timer, 1);
+    interval.current = window.setInterval(timer, 1000);
   }
 
   function handlePause() {
