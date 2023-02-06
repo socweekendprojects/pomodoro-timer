@@ -10,10 +10,11 @@ Click for [Demo](https://pomodoro-app1.netlify.app/).
 
 <h2> Main Learning Points</h2>
 
-- I used Tailwind CSS for the first time.
+- Practised Tailwind CSS
+- Used neumorphic styling
 - Used useRef hook
 - Used setInterval & clearInterval
-- The main problem I faced was with clearInterval onClick -> ‘its because start variable is re-created on each render and don’t have timer id when clearing interval you need to store it in useRef hook’. I took a lot of digging into google forums but the issue we had was the pause button kept on resetting. useRef seemed to do the trick. 'useRef is basically useState but React won't render component when ref changes nor ref value will change when render happens'. I was not able to use useState as it did not update the variables. 
+- The main problem we faced was with clearInterval onClick. It took a lot of digging into google forums but the issue we had was the pause button kept on resetting so useRef seemed to do the trick. 'useRef is basically useState but React won't render component when ref changes nor ref value will change when render happens'. 
 Solution found in https://www.reddit.com/r/reactjs/comments/y1aorm/clear_interval_is_not_working_on_onclick/
 
 <h2> Stretch Goals</h2>
