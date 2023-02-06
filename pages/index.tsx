@@ -72,6 +72,17 @@ const Home: NextPage = () => {
     setTime({ mins: mins.current, secs: secs.current });
   }
 
+  //for circle progress bar
+  let percentage =
+    heading === "Work Time"
+      ? Number(time.mins + time.secs / 60) / 25
+      : heading === "Short Break"
+      ? Number(time.mins + time.secs / 60) / 5
+      : Number(time.mins + time.secs / 60) / 15;
+  
+  console.log(time.mins);
+  console.log(percentage)
+  
   return (
     <div
       className={`flex items-center flex-col justify-center min-h-screen min-w-screen text-white transition-all ease-in-out duration-[500ms] ${
@@ -81,6 +92,7 @@ const Home: NextPage = () => {
       <div className="flex flex-col items-center gap-20 justify-center min-h-[50vh] min-w-[40vw]">
         <Heading heading={heading} />
         <Pomodoro
+          percentage={percentage}
           heading={heading}
           text={`${time.mins >= 10 ? time.mins : `0${time.mins}`}:${
             time.secs >= 10 ? time.secs : `0${time.secs}`
