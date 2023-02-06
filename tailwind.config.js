@@ -11,7 +11,7 @@ module.exports = {
         // Ligth theme
         light: {
           primary: "#A42324",
-          secondary: "#538D47",
+          secondary: "#38858A",
           tertiary: "#FCD431",
           hot: "#F6593D",
           text: "#3A373C",
