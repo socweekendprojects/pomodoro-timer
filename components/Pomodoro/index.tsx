@@ -16,20 +16,22 @@ export default function Pomodoro({ text, heading, percentage }: PomodoroProp) {
       }`}
     >
       {/* <h1 className="font-thin">{text}</h1> */}
-      <CircularProgressbar
-        styles={buildStyles({
-          // How long animation takes to go from one percentage to another, in seconds
-          pathTransitionDuration:0.3,
-          pathColor: `white`,
-          textColor: "white",
-          trailColor: "none",
-        })}
-        value={percentage}
-        maxValue={1}
-        counterClockwise={true}
-        text={`${text}`}
-        strokeWidth={2}
-      />
+      <div className="p-2">
+        <CircularProgressbar
+          styles={buildStyles({
+            // How long animation takes to go from one percentage to another, in seconds
+            pathTransitionDuration: 0.3,
+            pathColor: `white`,
+            textColor: "white",
+            trailColor: "none",
+          })}
+          value={percentage}
+          maxValue={1}
+          counterClockwise={true}
+          text={`${text}`}
+          strokeWidth={2}
+        />
+      </div>
     </div>
   );
 }
