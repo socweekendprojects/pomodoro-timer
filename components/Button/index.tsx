@@ -1,7 +1,7 @@
 import React from "react";
 type ButtonProps = {
   handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  handlePause: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  handlePause?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   buttonText: string;
   heading: string;
 };

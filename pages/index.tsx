@@ -17,6 +17,7 @@ const Home: NextPage = () => {
   const [time, setTime] = useState({ mins: 25, secs: 0.0 });
   const [playBtnState, setPlayBtnState] = useState(false);
   const [heading, setHeading] = useState("Work Time");
+  const [index, setIndex] = useState(0);
 
   let workTime = 25;
   let breakTime = 5;
@@ -72,6 +73,20 @@ const Home: NextPage = () => {
     setTime({ mins: mins.current, secs: secs.current });
   }
 
+  function handleSkip() {
+    const phases = ["Short Break", "Work Time", "Short Break", "Work Time", "Short Break", "Work Time", "Long Break", "Work Time"];
+    setIndex(index < 7 ? index + 1 : 0);
+    setHeading(phases[index]);
+    secs.current = 60;
+    if (phases[index] === "Short Break") {
+      mins.current = breakTime -1;
+      breakCount.current = breakCount.current++
+    } else if (phases[index] === "Long Break") {
+      mins.current = longBreak -1;
+      breakCount.current = -1;
+    } else mins.current = workTime -1;
+  }
+
   //for circle progress bar
   let percentage =
     heading === "Work Time"
@@ -81,7 +96,7 @@ const Home: NextPage = () => {
       : Number(time.mins + time.secs / 60) / 15;
   
   console.log(time.mins);
-  console.log(percentage)
+  console.log(percentage);
   
   return (
     <div
@@ -118,6 +133,11 @@ const Home: NextPage = () => {
             handleClick={() => {
               handleReset(), setPlayBtnState(false), setHeading("Work Time");
             }}
+          />
+          <Button
+            heading={heading}
+            buttonText={"Skip"}
+            handleClick={handleSkip}
           />
         </div>
       </div>
