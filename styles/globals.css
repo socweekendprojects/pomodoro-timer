@@ -11,7 +11,7 @@ h2
     font-size: 30px;
 }
 
-
+/* Work Time */
 .pomodoroShadow{
     background: linear-gradient(145deg, #942020, #af2527);
     box-shadow: 20px 20px 60px #8b1e1f,
@@ -29,4 +29,24 @@ h2
 .buttonShadow:active {
     box-shadow: inset 4px 4px 12px #691617,
         inset -4px -4px 12px #df3031;
+}
+/* Break Time */
+.pomodoroShadowBreak {
+    border-radius: 50%;
+        background: linear-gradient(145deg, #32787c, #3c8e94);
+        box-shadow: 25px 25px 50px #307175,
+            -25px -25px 60px #40999f;
+}
+
+.buttonShadowBreak {
+    background: linear-gradient(145deg, #3c8e94, #32787c);
+        box-shadow: 6px 6px 12px #307175,
+            -6px -6px 40px #32787c;
+    transition: all .3s;
+
+}
+
+.buttonShadowBreak:active {
+    box-shadow: inset 4px 4px 12px #3c8e94,
+        inset -4px -4px 12px #32787c;
 }
