@@ -79,12 +79,17 @@ const Home: NextPage = () => {
     setHeading(phases[index]);
     secs.current = 60;
     if (phases[index] === "Short Break") {
-      mins.current = breakTime -1;
+      setTime({ mins: 5, secs: 0.0 });
+      mins.current = breakTime - 1;
       breakCount.current = breakCount.current++
     } else if (phases[index] === "Long Break") {
-      mins.current = longBreak -1;
+      setTime({ mins: 15, secs: 0.0 });
+      mins.current = longBreak - 1;
       breakCount.current = -1;
-    } else mins.current = workTime -1;
+    } else {
+      mins.current = workTime - 1;
+      setTime({ mins: 25, secs: 0.0 });
+    }
   }
 
   //for circle progress bar
